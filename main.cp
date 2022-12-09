@@ -1,72 +1,47 @@
 //
 //  main.cpp
-//  queue_functions
+//  string_functions
 //
 //  Created by Matt Zhang on 12/8/22.
 //
 
-// main.cpp
-
 #include <iostream>
-#include <queue>
-#include "queue_functions.h"
+#include "string_functions.h"
 
-void move_to_rear(std::queue<int>& q){
-    if(q.empty()){
-        return;
-    }
-    
-    int value = front(q);
-    
-    pop(q);
-    
-    push(q, value);
+using namespace std;
+
+int checkPalindrome(char str[], int first, int last){
+   if (first < last + 1){
+      first++;
+      last--;
+      return checkPalindrome(str, first, last);
+   }
+
+   if (first == last){
+      return 1;
+   }
+   if (str[first] != str[last]){
+      return 0;
+   }
+   return 1;
 }
 
-void push(std::queue<int>& q, int value){
-    q.push(value);
-}
+int main(){
+   char Str[] = "mada";
+   int result;
+   int length = strlen(Str);
+   if (length == 0){
+      result=1;
+   }
 
-int front(std::queue<int>& q) {
-    return q.front();
-}
-
-void pop(std::queue<int>& q) {
-    q.pop();
-}
-
-int main() {
-  // Create a queue of integers
-  std::queue<int> q;
-
-  // Push some values to the queue
-  q.push(1);
-  q.push(2);
-  q.push(3);
-
-  // Print the queue
-  std::cout << "Original queue: ";
-  while (!q.empty()) {
-    std::cout << q.front() << " ";
-    q.pop();
-  }
-  std::cout << std::endl;
-
-  // Push some values to the queue
-  q.push(1);
-  q.push(2);
-  q.push(3);
-
-  // Move the element at the front of the queue to the rear
-  move_to_rear(q);
-
-  // Print the queue
-  std::cout << "Modified queue: ";
-  while (!q.empty()) {
-    std::cout << q.front() << " ";
-    q.pop();
-  }
-  std::cout << std::endl;
-
-  return 0;
+   else{
+      result=checkPalindrome(Str, 0, length - 1);
+   }
+   if (result==1){
+      cout << "Input string is palindrome.";
+   }
+   else{
+      cout << "Input string is not a palindrome.";
+   }
+   return 0;
 }
